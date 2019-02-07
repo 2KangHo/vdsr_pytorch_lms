@@ -1,6 +1,13 @@
 # vdsr_pytorch_lms
 VDSR PyTorch Implementation using LMS
 
+## Requirement
+`torch`
+`torchvision`
+`python-tk` (or `python3-tk`)
+
+## Download dataset
+DF2K dataset
 
 ## Usage
 ### use lms
