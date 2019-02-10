@@ -7,7 +7,8 @@ VDSR PyTorch Implementation using LMS
 `python-tk` (or `python3-tk`)
 
 ## Download dataset
-DF2K dataset
+1. Download [DF2K dataset](https://drive.google.com/file/d/1P9pcaGjvq3xiF22GXIq7ciZta3rjZxaY/view?usp=sharing).
+2. move under dataset directory i.e. vdsr_pytorch_lms/dataset/DF2K
 
 ## Usage
 ### use lms
