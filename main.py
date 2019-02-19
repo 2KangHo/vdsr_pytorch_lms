@@ -64,16 +64,21 @@ def main():
 
     cudnn.benchmark = True
 
-    train_set = get_training_set(opt.dataset, opt.crop_size,
-        opt.upscale_factor, opt.add_noise, opt.noise_std)
-    validation_set = get_validation_set(
-        opt.dataset, opt.crop_size, opt.upscale_factor)
+    if not opt.test:
+        train_set = get_training_set(opt.dataset, opt.crop_size,
+            opt.upscale_factor, opt.add_noise, opt.noise_std)
+        validation_set = get_validation_set(
+            opt.dataset, opt.crop_size, opt.upscale_factor)
+
     test_set = get_test_set(
         opt.dataset, opt.crop_size, opt.upscale_factor)
-    training_data_loader = DataLoader(
-        dataset=train_set, num_workers=opt.threads, batch_size=opt.batch_size, shuffle=True)
-    validating_data_loader = DataLoader(
-        dataset=validation_set, num_workers=opt.threads, batch_size=opt.test_batch_size, shuffle=False)
+
+    if not opt.test:
+        training_data_loader = DataLoader(
+            dataset=train_set, num_workers=opt.threads, batch_size=opt.batch_size, shuffle=True)
+        validating_data_loader = DataLoader(
+            dataset=validation_set, num_workers=opt.threads, batch_size=opt.test_batch_size, shuffle=False)
+
     testing_data_loader = DataLoader(
         dataset=test_set, num_workers=opt.threads, batch_size=opt.test_batch_size, shuffle=False)
 
@@ -81,8 +86,10 @@ def main():
     criterion = nn.MSELoss()
 
     if opt.cuda:
+        # lms option
         if opt.lms:
             torch.cuda.set_enabled_lms(True)
+
         torch.cuda.set_device(opt.gpuids[0])
         with torch.cuda.device(opt.gpuids[0]):
             model = model.cuda()
