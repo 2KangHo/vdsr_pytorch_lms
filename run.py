@@ -11,8 +11,8 @@ from PIL import Image
 from torchvision.transforms import ToTensor
 import numpy as np
 
-# Training settings
-parser = argparse.ArgumentParser(description='PyTorch Super Res Example')
+# Demonstration settings
+parser = argparse.ArgumentParser(description='VDSR PyTorch Demonstration')
 parser.add_argument('--input_image', type=str,
                     required=True, help='input image to use')
 parser.add_argument('--model', type=str, required=True,
@@ -39,6 +39,7 @@ model_name = join("model", opt.model)
 model = torch.load(model_name)
 input = Variable(ToTensor()(img)).view(1, -1, img.size[1], img.size[0])
 
+# lms option
 if opt.lms:
     torch.cuda.set_enabled_lms(True)
 
